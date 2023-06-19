@@ -1,7 +1,19 @@
 'use strict';
 import { Shape } from "./shape.js";
 
+/**
+ * This class contains a rectangle
+ */
 export class Rectangle extends Shape{
+
+    /**
+     * Constructs a rectangle object
+     * 
+     * @param {Point} topLeft point contain the pixel coordinates of top left of the rectangle
+     * @param {number} width width of the rectangle in pixels
+     * @param {number} height height of the rectangle in pixels
+     * @param {Color} [color] color to draw the rectangle
+     */
     constructor (topLeft, width, height, color = undefined) {
         super();
         this.point = topLeft;
@@ -10,6 +22,11 @@ export class Rectangle extends Shape{
         this.color = color;
     }
 
+    /**
+     * Render the rectangle to the canvas of the provided context
+     * 
+     * @param {WebGLRenderingContext} gl rendering context for the canvas
+     */
     render(gl) {
         if(!this.initPixelRender(gl)) {
             console.log("GL not provided for Rectangle");
@@ -24,7 +41,6 @@ export class Rectangle extends Shape{
                 x2, y2
             ]), gl.STATIC_DRAW);
             gl.drawArrays(gl.TRIANGLES, 0, 6);
-            return true;
         }
     }
 }

@@ -32,9 +32,18 @@ const fragmentShaderSource = `
     }
 `;
 
+/**
+ * This class contains shape common functionality
+ */
 export class Shape {
     constructor() { }
     
+    /**
+     * Initialize a 2d shader program that reads pixel coordinates
+     * 
+     * @param {WebGLRenderingContext} gl rendering context for the canvas
+     * @returns true if initialization is successful and false otherwise
+     */
     initPixelRender(gl) {
         if (gl === null) {
             console.log("Error retrieving canvas context.");
