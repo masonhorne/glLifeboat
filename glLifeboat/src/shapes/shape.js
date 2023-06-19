@@ -37,7 +37,12 @@ const fragmentShaderSource = `
  */
 export class Shape {
     constructor() { }
-    
+
+    /**
+     * Extend a shape and override this function to provide update behavior to the shape
+     */
+    update() {}
+
     /**
      * Initialize a 2d shader program that reads pixel coordinates
      * 
