@@ -1,3 +1,3 @@
 # glLifeboat
 
-jsdoc -r glLifeboat/src/ -d glLifeboat/api/
+A javascript library for rendering to the WebGL Canvas
