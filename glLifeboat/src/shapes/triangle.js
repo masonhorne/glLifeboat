@@ -1,8 +1,20 @@
 'use strict';
 import { Shape } from "./shape.js";
 
+/**
+ * This class contains a triangle
+ */
 export class Triangle extends Shape {
-    constructor(pointOne, pointTwo, pointThree, color) {
+
+    /**
+     * Constructs a triangle object
+     * 
+     * @param {Point} pointOne one of the triangles vertices
+     * @param {Point} pointTwo one of the triangles vertices
+     * @param {Point} pointThree one of the triangles vertices
+     * @param {Color} [color] color to draw the triangle
+     */
+    constructor(pointOne, pointTwo, pointThree, color = undefined) {
         super();
         this.p1 = pointOne;
         this.p2 = pointTwo;
@@ -10,6 +22,11 @@ export class Triangle extends Shape {
         this.color = color;
     }
 
+    /**
+     * Render the triangle to the canvas of the provided context
+     * 
+     * @param {WebGLRenderingContext} gl rendering context for the canvas
+     */
     render(gl) {
         if(!this.initPixelRender(gl)) {
             console.log("GL not provided for Rectangle");
