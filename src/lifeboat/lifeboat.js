@@ -3,19 +3,6 @@ import { resetForRender } from "../utility/webglutils.js";
 import { sleep } from "../utility/sleep.js";
 
 /**
- * @typedef {number} RenderStyle
- */
-
-/** 
- * Render styles available for the lifeboat
- * @enum {RenderStyle} style to render the canvas
- */
-const RENDER_STYLE = {
-    STATIC: 0,
-    DYNAMIC: 1,
-};
-
-/**
  * This class contains a lifeboat for managing canvas renders
  */
 export class Lifeboat {
@@ -25,6 +12,19 @@ export class Lifeboat {
     
     /** Frames per second to render in dynamic mode */
     FPS = 60;
+
+    /**
+    * @typedef {number} RenderStyle
+    */
+
+    /** 
+    * Render styles available for the lifeboat
+    * @enum {RenderStyle} style to render the canvas
+    */
+    static RENDER_STYLE = {
+        STATIC: 0,
+        DYNAMIC: 1,
+    };
 
     /** 
      * Construct a lifeboat for the requested canvas

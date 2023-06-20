@@ -5,4 +5,11 @@ import { Color } from "./utility/color";
 import { Point } from "./utility/point";
 import { Lifeboat } from "./lifeboat/lifeboat";
 
-export { Shape, Rectangle, Triangle, Color, Point, Lifeboat };
+export { 
+    Shape,
+    Rectangle,
+    Triangle,
+    Color,
+    Point,
+    Lifeboat 
+};

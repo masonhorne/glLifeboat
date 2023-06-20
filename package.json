@@ -40,6 +40,7 @@
     "type": "git",
     "url": "https://github.com/masonhorne/glLifeboat.git"
   },
+  "type": "module",
   "author": "Mason Horne",
   "license": "ISC",
   "bugs": {
