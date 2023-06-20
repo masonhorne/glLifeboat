@@ -1,6 +1,6 @@
 'use strict';
-import { resetForRender } from "./utility/webglutils.js";
-import { sleep } from "./utility/sleep.js";
+import { resetForRender } from "../utility/webglutils.js";
+import { sleep } from "../utility/sleep.js";
 
 /**
  * This class contains a lifeboat for managing canvas renders
@@ -28,7 +28,7 @@ export class Lifeboat {
 
     /** 
      * Construct a lifeboat for the requested canvas
-     * @param {string} canvasid id of the canvas to render to
+     * @param {string} canvasId id of the canvas to render to
      * @param {RenderStyle} [renderStyle] style to render the canvas in
      */
     constructor(canvasId, renderStyle = 0) {
