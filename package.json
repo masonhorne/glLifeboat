@@ -1,6 +1,6 @@
 {
   "name": "gllifeboat",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A rendering library for WebGL",
   "main": "src/index.js",
   "dependencies": {
