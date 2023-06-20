@@ -1,0 +1,30 @@
+{
+  "name": "gllifeboat",
+  "version": "1.0.2",
+  "description": "A rendering library for WebGL",
+  "main": "dist/index.js",
+  "dependencies": {
+    "jsdoc": "^4.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "babel-loader": "^9.1.2",
+    "webpack": "^5.87.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "scripts": {
+    "build": "webpack --mode production",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/masonhorne/glLifeboat.git"
+  },
+  "type": "module",
+  "author": "Mason Horne",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/masonhorne/glLifeboat/issues"
+  },
+  "homepage": "https://github.com/masonhorne/glLifeboat#readme"
+}
