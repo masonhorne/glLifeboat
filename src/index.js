@@ -1,9 +1,9 @@
-import { Shape } from "./shapes/shape";
-import { Rectangle } from "./shapes/rectangle";
-import { Triangle } from "./shapes/triangle";
-import { Color } from "./utility/color";
-import { Point } from "./utility/point";
-import { Lifeboat } from "./lifeboat/lifeboat";
+import { Shape } from "./shapes/shape.js";
+import { Rectangle } from "./shapes/rectangle.js";
+import { Triangle } from "./shapes/triangle.js";
+import { Color } from "./utility/color.js";
+import { Point } from "./utility/point.js";
+import { Lifeboat } from "./lifeboat/lifeboat.js";
 
 export { 
     Shape,
