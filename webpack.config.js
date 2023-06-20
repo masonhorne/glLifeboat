@@ -1,6 +1,6 @@
 import path from 'path';
 
-module.exports = {
+export default {
   mode: 'production',
   entry: './src/index.js',
   output: {
