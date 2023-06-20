@@ -1,0 +1,21 @@
+{
+  "name": "gllifeboat",
+  "version": "1.0.8",
+  "main": "src/index.js",
+  "dependencies": {
+    "jsdoc": "^4.0.2"
+  },
+  "devDependencies": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/masonhorne/glLifeboat.git"
+  },
+  "type": "module",
+  "author": "Mason Horne",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/masonhorne/glLifeboat/issues"
+  },
+  "homepage": "https://github.com/masonhorne/glLifeboat#readme"
+}
