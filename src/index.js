@@ -14,5 +14,6 @@ export {
     Lifeboat,
     Blue,
     Red,
-    Green
+    Green,
+    Lifeboat 
 };
