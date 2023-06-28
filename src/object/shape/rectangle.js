@@ -4,7 +4,7 @@ import { Shape } from "./shape.js";
 /**
  * This class contains a rectangle
  */
-export class Rectangle extends Shape{
+export class Rectangle extends Shape {
 
     /**
      * Constructs a rectangle object

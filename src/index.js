@@ -1,8 +1,8 @@
-import { Shape } from "./shapes/shape.js";
-import { Rectangle } from "./shapes/rectangle.js";
-import { Triangle } from "./shapes/triangle.js";
-import { Blue, Color, Green, Red } from "./utility/color.js";
-import { Point } from "./utility/point.js";
+import { Shape } from "./object/shape/shape.js";
+import { Rectangle } from "./object/shape/rectangle.js";
+import { Triangle } from "./object/shape/triangle.js";
+import { Blue, Color, Green, Red } from "./object/model/color.js";
+import { Point, PointRenderSetting } from "./object/model/point.js";
 import { Lifeboat } from "./lifeboat/lifeboat.js";
 
 export { 
@@ -11,6 +11,7 @@ export {
     Triangle,
     Color,
     Point,
+    PointRenderSetting,
     Lifeboat,
     Blue,
     Red,

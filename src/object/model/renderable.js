@@ -1,10 +1,14 @@
+
 'use strict';
-import { Color } from "../utility/color.js";
-import { createProgram, createShader } from "../utility/webglutils.js";
+import { throwAbstractClassError } from "../../utility/logging.js";
+import { createProgram, createShader } from "../../utility/webglutils.js";
+import { Color } from "./color.js";
 
 const pixelVertexShaderSource = `
     // Attribute to receive data from buffer
     attribute vec2 position;
+    // Uniform to receive point size from buffer
+    uniform float pointSize;
     // Screen resolution for converting to clip space
     uniform vec2 resolution;
     // Main function for the shader
@@ -17,6 +21,7 @@ const pixelVertexShaderSource = `
         vec2 clipSpace = zeroToTwo - 1.0;
         // Set position with to coordinate with z of 0 and w of 1
         gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+        gl_PointSize = pointSize;
     }
 `;
 
@@ -33,15 +38,27 @@ const fragmentShaderSource = `
 `;
 
 /**
- * This class contains shape common functionality
+ * This is an abstract class for objects that can be rendered on the canvas
  */
-export class Shape {
-    constructor() { }
+export class Renderable {
 
     /**
-     * Extend a shape and override this function to provide update behavior to the shape
+     * Renderable is an abstract class and should not be instantiated
      */
-    update() {}
+    constructor() {
+        if(this.constructor.name == Renderable) {
+            throwAbstractClassError(this.constructor.name);
+        }
+    }
+
+    /**
+     * Render the object to the canvas of the provided context
+     * 
+     * @param {WebGLRenderingContext} gl rendering context for the canvas
+     */
+    render(gl) {
+        throwAbstractClassError(this.constructor.name);
+    }
 
     /**
      * Initialize a 2d shader program that reads pixel coordinates
@@ -60,6 +77,7 @@ export class Shape {
         const program = createProgram(gl, vertexShader, fragmentShader);
         // Get attribute and uniform locations
         const positionAttributeLocation = gl.getAttribLocation(program, "position");
+        const pointSizeAttributeLocation = gl.getUniformLocation(program, "pointSize");
         const resolutionUniformLocation = gl.getUniformLocation(program, "resolution");
         const colorUniformLocation = gl.getUniformLocation(program, "color");
         // Bind buffer and choose program
@@ -71,6 +89,10 @@ export class Shape {
         const size = 2, type = gl.FLOAT, normalize = false, stride = 0, offset = 0;
         gl.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset);
         gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
+        // If point size is provided set point size
+        if(this.pointSize !== undefined) {
+            gl.uniform1f(pointSizeAttributeLocation, this.pointSize);
+        }
         // If color is provided set color otherwise use black
         if(this.color === undefined || !(this.color instanceof Color)) {
             gl.uniform4f(colorUniformLocation, 0, 0, 0, 1);
@@ -84,4 +106,9 @@ export class Shape {
         }
         return true;
     }
+
+    /**
+     * Extend a renderable object and override this function to provide update behavior to the object
+     */
+    update() {}
 }
