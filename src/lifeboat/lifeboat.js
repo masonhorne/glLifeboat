@@ -28,12 +28,11 @@ export class Lifeboat {
 
     /** 
      * Construct a lifeboat for the requested canvas
-     * @param {string} canvasId id of the canvas to render to
+     * @param {WebGLRenderingContext} gl rendering context for the canvas
      * @param {RenderStyle} [renderStyle] style to render the canvas in
      */
-    constructor(canvasId, renderStyle = 0) {
-        const ctx = document.getElementById(canvasId);
-        this.gl = ctx.getContext("webgl");
+    constructor(gl, renderStyle = 0) {
+        this.gl = gl;
         this.renderStyle = renderStyle;
     }
 
