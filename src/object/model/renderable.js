@@ -3,24 +3,19 @@
 import { throwAbstractClassError } from "../../utility/logging.js";
 import { createProgram, createShader } from "../../utility/webglutils.js";
 import { Color } from "./color.js";
+import { projection } from "../../utility/math.js";
 
 const pixelVertexShaderSource = `
     // Attribute to receive data from buffer
     attribute vec2 position;
     // Uniform to receive point size from buffer
     uniform float pointSize;
-    // Screen resolution for converting to clip space
-    uniform vec2 resolution;
+    // Uniform to convert coordinate position to clipspace
+    uniform mat3 projection;
     // Main function for the shader
     void main () {
-        // Get position in range of [0,1]
-        vec2 zeroToOne = position / resolution;
-        // Get position in range of [0,2]
-        vec2 zeroToTwo = zeroToOne * 2.0;
-        // Get position in range of [-1,1]
-        vec2 clipSpace = zeroToTwo - 1.0;
         // Set position with to coordinate with z of 0 and w of 1
-        gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+        gl_Position = vec4((projection * vec3(position, 1)).xy, 0, 1);
         gl_PointSize = pointSize;
     }
 `;
@@ -78,7 +73,7 @@ export class Renderable {
         // Get attribute and uniform locations
         const positionAttributeLocation = gl.getAttribLocation(program, "position");
         const pointSizeAttributeLocation = gl.getUniformLocation(program, "pointSize");
-        const resolutionUniformLocation = gl.getUniformLocation(program, "resolution");
+        const projectionUniformLocation = gl.getUniformLocation(program, "projection");
         const colorUniformLocation = gl.getUniformLocation(program, "color");
         // Bind buffer and choose program
         const positionBuffer = gl.createBuffer();
@@ -88,7 +83,7 @@ export class Renderable {
         gl.enableVertexAttribArray(positionAttributeLocation);
         const size = 2, type = gl.FLOAT, normalize = false, stride = 0, offset = 0;
         gl.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset);
-        gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
+        gl.uniformMatrix3fv(projectionUniformLocation, false, projection(gl.canvas.clientWidth, gl.canvas.clientHeight));
         // If point size is provided set point size
         if(this.pointSize !== undefined) {
             gl.uniform1f(pointSizeAttributeLocation, this.pointSize);
