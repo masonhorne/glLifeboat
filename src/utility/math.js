@@ -49,38 +49,74 @@ export function multiply(matrixA, matrixB){
  */
 export function identity() {
     return [
-        1, 0, 0,
-        0, 1, 0,
-        0, 0, 1,
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1,
     ];
 }
 
 /**
- * Get a 2d rotation matrix for the given angle
+ * Get a 3d rotation matrix for x direction in the given angle
  * @param {number} angleInRadian angle in radian to rotate by
  * @returns matrix containing the rotation
  */
-export function rotation(angleInRadian) {
+export function rotationX(angleInRadian) {
     const sin = Math.sin(angleInRadian);
     const cos = Math.cos(angleInRadian);
     return [
-        cos, -sin, 0,
-        sin, cos, 0,
-        0, 0, 0,
+        1, 0, 0, 0,
+        0, cos, sin, 0,
+        0, -sin, cos, 0,
+        0, 0, 0, 1,
     ]
 }
 
 /**
- * Get a 2d translation matrix for the given angle
+ * Get a 3d rotation matrix for the y direction in the given angle
+ * @param {number} angleInRadian angle in radian to rotate by
+ * @returns matrix containing the rotation
+ */
+export function rotationY(angleInRadian) {
+    const sin = Math.sin(angleInRadian);
+    const cos = Math.cos(angleInRadian);
+    return [
+        cos, 0, -sin, 0,
+        0, 1, 0, 0,
+        sin, 0, cos, 0,
+        0, 0, 0, 1,
+    ]
+}
+
+/**
+ * Get a 3d rotation matrix for the z direction in the given angle
+ * @param {number} angleInRadian angle in radian to rotate by
+ * @returns matrix containing the rotation
+ */
+export function rotationZ(angleInRadian) {
+    const sin = Math.sin(angleInRadian);
+    const cos = Math.cos(angleInRadian);
+    return [
+        cos, sin, 0, 0,
+        -sin, cos, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1,
+    ]
+}
+
+/**
+ * Get a 3d translation matrix for the given angle
  * @param {number} translateX units to translate X by
  * @param {number} translateY units to translate Y by
+ * @param {number} translateZ units to translate Z by
  * @returns matrix containing the translation
  */
-export function translation(translateX, translateY) {
+export function translation(translateX, translateY, translateZ) {
     return [
-        1, 0, 0,
-        0, 1, 0,
-        translateX, translateY, 1,
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        translateX, translateY, translateZ, 1,
     ]
 }
 
@@ -88,13 +124,15 @@ export function translation(translateX, translateY) {
  * Get a 2d scaling matrix for the given angle
  * @param {number} scaleX units to scale X by
  * @param {number} scaleY units to scale Y by
+ * @param {number} scaleZ units to scale Z by
  * @returns matrix containing the scaling
  */
-export function scale(scaleX, scaleY) {
+export function scale(scaleX, scaleY, scaleZ) {
     return [
-        scaleX, 0, 0,
-        0, scaleY, 0,
-        0, 0, 1,
+        scaleX, 0, 0, 0,
+        0, scaleY, 0, 0,
+        0, 0, scaleZ, 0,
+        0, 0, 0, 1,
     ]
 }
 
@@ -102,12 +140,14 @@ export function scale(scaleX, scaleY) {
  * Get a projection matrix for converting pixel coordinates to clipspace
  * @param {number} width width of the canvas
  * @param {height} height height of the canvas
+ * @param {depth} depth depth of the canvas
  * @returns a matrix for converting pixel coordinates into clipspace
  */
-export function projection(width, height) {
+export function projection(width, height, depth) {
     return [
-        2 / width, 0, 0,
-        0, -2 / height, 0,
-        -1, 1, 1,
+        2 / width, 0, 0, 0,
+        0, -2 / height, 0, 0,
+        0, 0, 2 / depth, 0,
+        -1, 1, 0, 1,
     ];
 }

@@ -16,6 +16,8 @@ export class Triangle extends Shape {
      */
     constructor(pointOne, pointTwo, pointThree, color = undefined) {
         super();
+        this.minX = Math.min(pointOne.x, Math.min(pointTwo.x, pointThree.x));
+        this.minY = Math.min(pointOne.y, Math.min(pointTwo.y, pointThree.y));
         this.p1 = pointOne;
         this.p2 = pointTwo;
         this.p3 = pointThree;
@@ -32,9 +34,9 @@ export class Triangle extends Shape {
             console.log("GL not provided for Rectangle");
         } else {
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-                this.p1.x, this.p1.y,
-                this.p2.x, this.p2.y,
-                this.p3.x, this.p3.y,
+                this.p1.x - this.minX, this.p1.y - this.minY, 0,
+                this.p2.x - this.minX, this.p2.y - this.minY, 0,
+                this.p3.x - this.minX, this.p3.y - this.minY, 0,
             ]), gl.STATIC_DRAW);
             gl.drawArrays(gl.TRIANGLES, 0, 3);
             return true;

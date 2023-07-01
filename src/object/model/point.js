@@ -52,7 +52,7 @@ export class Point extends Renderable {
             console.log("GL not provided for Rectangle");
         } else {
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-                this.x, this.y,
+                this.x, this.y, this.z,
             ]), gl.STATIC_DRAW);
             gl.drawArrays(gl.POINTS , 0, 1);
         }
