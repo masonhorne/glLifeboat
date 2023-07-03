@@ -69,7 +69,7 @@ export function rotationX(angleInRadian) {
         0, cos, sin, 0,
         0, -sin, cos, 0,
         0, 0, 0, 1,
-    ]
+    ];
 }
 
 /**
@@ -85,7 +85,7 @@ export function rotationY(angleInRadian) {
         0, 1, 0, 0,
         sin, 0, cos, 0,
         0, 0, 0, 1,
-    ]
+    ];
 }
 
 /**
@@ -101,7 +101,7 @@ export function rotationZ(angleInRadian) {
         -sin, cos, 0, 0,
         0, 0, 1, 0,
         0, 0, 0, 1,
-    ]
+    ];
 }
 
 /**
@@ -117,11 +117,11 @@ export function translation(translateX, translateY, translateZ) {
         0, 1, 0, 0,
         0, 0, 1, 0,
         translateX, translateY, translateZ, 1,
-    ]
+    ];
 }
 
 /**
- * Get a 2d scaling matrix for the given angle
+ * Get a 3d scaling matrix for the given angle
  * @param {number} scaleX units to scale X by
  * @param {number} scaleY units to scale Y by
  * @param {number} scaleZ units to scale Z by
@@ -133,7 +133,7 @@ export function scale(scaleX, scaleY, scaleZ) {
         0, scaleY, 0, 0,
         0, 0, scaleZ, 0,
         0, 0, 0, 1,
-    ]
+    ];
 }
 
 /**

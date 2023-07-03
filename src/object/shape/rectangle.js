@@ -1,5 +1,6 @@
 'use strict';
 import { Shape } from "./shape.js";
+import { Black } from "../model/color.js";
 
 /**
  * This class contains a rectangle
@@ -19,7 +20,7 @@ export class Rectangle extends Shape {
         this.setTopLeft(topLeft);
         this.w = width;
         this.h = height;
-        this.color = color;
+        this.color = color ?? new Black();
     }
 
     /**
@@ -41,16 +42,46 @@ export class Rectangle extends Shape {
         if(!this.initPixelRender(gl)) {
             console.log("GL not provided for Rectangle");
         } else {
-            const x1 = this.point.x, x2 = this.point.x + this.w, y1 = this.point.y, y2 = this.point.y + this.h;
+            // Setup position buffer
+            this.setupPositionBuffer(gl);
+            // Calculate position vertices
+            const x1 = this.point.x - this.minX, x2 = this.point.x + this.w - this.minX, y1 = this.point.y - this.minY, y2 = this.point.y + this.h - this.minY;
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-                x1 - this.minX, y1 - this.minY, 0,
-                x2 - this.minX, y1 - this.minY, 0,
-                x1 - this.minX, y2 - this.minY, 0,
-                x1 - this.minX, y2 - this.minY, 0,
-                x2 - this.minX, y1 - this.minY, 0,
-                x2 - this.minX, y2 - this.minY, 0,
+                x1, y1, 0,
+                x2, y1, 0,
+                x1, y2, 0,
+                x1, y2, 0,
+                x2, y1, 0,
+                x2, y2, 0,
+                x1, y1, 0,
+                x1, y2, 0,
+                x2, y1, 0,
+                x1, y2, 0,
+                x2, y2, 0,
+                x2, y1, 0,
             ]), gl.STATIC_DRAW);
-            gl.drawArrays(gl.TRIANGLES, 0, 6);
+            // Setup color buffer
+            this.setupColorBuffer(gl);
+            // Calculate the color values for the vertices
+            gl.bufferData(gl.ARRAY_BUFFER, new Uint8Array([
+                ...this.color.rgb(),
+                ...this.color.rgb(),
+                ...this.color.rgb(),
+                ...this.color.rgb(),
+                ...this.color.rgb(),
+                ...this.color.rgb(),
+                ...this.color.rgb(),
+                ...this.color.rgb(),
+                ...this.color.rgb(),
+                ...this.color.rgb(),
+                ...this.color.rgb(),
+                ...this.color.rgb(),
+            ]), gl.STATIC_DRAW);
+            // Process the provided values
+            this.processPositionBuffer(gl);
+            this.processColorBuffer(gl);
+            // Draw the shape to the screen
+            gl.drawArrays(gl.TRIANGLES, 0, 12);
         }
     }
 }

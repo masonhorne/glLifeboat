@@ -1,8 +1,8 @@
 'use strict';
 import { Renderable } from "../model/renderable.js";
-import { throwAbstractClassError } from "../../utility/logging.js";
-import { degreeToRadian } from "../../utility/math.js";
-import { multiply, rotationX, rotationY, rotationZ, translation } from "../../utility/math.js";
+import { throwAbstractClassError } from "../utility/logging.js";
+import { degreeToRadian } from "../utility/math.js";
+import { multiply, rotationX, rotationY, rotationZ, translation } from "../utility/math.js";
 
 /**
  * This is an abtract class containing shape functionality
@@ -13,7 +13,8 @@ export class Shape extends Renderable {
     xRotation = 0;
     yRotation = 0;
     zRotation = 0;
-    /** These are the min x and y values for the shape */
+
+    /** These are the min x, y, and z values for the shape */
     minX = undefined;
     minY = undefined;
     minZ = undefined;

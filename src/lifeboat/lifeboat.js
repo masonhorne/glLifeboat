@@ -1,6 +1,6 @@
 'use strict';
-import { resetForRender } from "../utility/webglutils.js";
-import { sleep } from "../utility/sleep.js";
+import { resetForRender } from "../object/utility/webglutils.js";
+import { sleep } from "../object/utility/sleep.js";
 
 /**
  * This class contains a lifeboat for managing canvas renders
