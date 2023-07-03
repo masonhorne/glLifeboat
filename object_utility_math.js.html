@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: object/utility/math.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: object/utility/math.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+import { throwMatrixMultiplyError } from "./logging.js";
+
+/**
+ * Return a random number between [0, max]
+ * @param {number} max maximum value to generate
+ * @returns a random number between 0 and max inclusive
+ */
+export function randomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
+/**
+ * Converts a degree to its radian value 
+ * @param {number} angleInDegree degree from +X axis counterclockwise
+ * @returns radian value for the degree
+ */
+export function degreeToRadian(angleInDegree) {
+    return angleInDegree * Math.PI / 180;
+}
+
+/**
+ * Multiply two square matrices and return their resulting matrix
+ * @param {Array} matrixA first matrix to multiply
+ * @param {Array} matrixB second matrix to multiply
+ * @returns the resulting matrix
+ */
+export function multiply(matrixA, matrixB){
+    if(matrixA.length != matrixB.length || Math.sqrt(matrixA.length) % 1 !== 0) {
+        throwMatrixMultiplyError();
+    }
+    const n = Math.sqrt(matrixA.length);
+    const result = [];
+    matrixA.forEach((v, i) => {
+        const r = Math.floor(i / n);
+        const c = i % n;
+        let a = 0;
+        for(let j = 0; j &lt; n; j++){
+            a += matrixA[r * n + j] * matrixB[j * n + c];
+        }
+        result.push(a);
+    });
+    return result;
+}
+
+/**
+ * Get an identity matrix
+ * @returns an identity matrix
+ */
+export function identity() {
+    return [
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1,
+    ];
+}
+
+/**
+ * Get a 3d rotation matrix for x direction in the given angle
+ * @param {number} angleInRadian angle in radian to rotate by
+ * @returns matrix containing the rotation
+ */
+export function rotationX(angleInRadian) {
+    const sin = Math.sin(angleInRadian);
+    const cos = Math.cos(angleInRadian);
+    return [
+        1, 0, 0, 0,
+        0, cos, sin, 0,
+        0, -sin, cos, 0,
+        0, 0, 0, 1,
+    ];
+}
+
+/**
+ * Get a 3d rotation matrix for the y direction in the given angle
+ * @param {number} angleInRadian angle in radian to rotate by
+ * @returns matrix containing the rotation
+ */
+export function rotationY(angleInRadian) {
+    const sin = Math.sin(angleInRadian);
+    const cos = Math.cos(angleInRadian);
+    return [
+        cos, 0, -sin, 0,
+        0, 1, 0, 0,
+        sin, 0, cos, 0,
+        0, 0, 0, 1,
+    ];
+}
+
+/**
+ * Get a 3d rotation matrix for the z direction in the given angle
+ * @param {number} angleInRadian angle in radian to rotate by
+ * @returns matrix containing the rotation
+ */
+export function rotationZ(angleInRadian) {
+    const sin = Math.sin(angleInRadian);
+    const cos = Math.cos(angleInRadian);
+    return [
+        cos, sin, 0, 0,
+        -sin, cos, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1,
+    ];
+}
+
+/**
+ * Get a 3d translation matrix for the given angle
+ * @param {number} translateX units to translate X by
+ * @param {number} translateY units to translate Y by
+ * @param {number} translateZ units to translate Z by
+ * @returns matrix containing the translation
+ */
+export function translation(translateX, translateY, translateZ) {
+    return [
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        translateX, translateY, translateZ, 1,
+    ];
+}
+
+/**
+ * Get a 3d scaling matrix for the given angle
+ * @param {number} scaleX units to scale X by
+ * @param {number} scaleY units to scale Y by
+ * @param {number} scaleZ units to scale Z by
+ * @returns matrix containing the scaling
+ */
+export function scale(scaleX, scaleY, scaleZ) {
+    return [
+        scaleX, 0, 0, 0,
+        0, scaleY, 0, 0,
+        0, 0, scaleZ, 0,
+        0, 0, 0, 1,
+    ];
+}
+
+/**
+ * Get a projection matrix for converting pixel coordinates to clipspace
+ * @param {number} width width of the canvas
+ * @param {height} height height of the canvas
+ * @param {depth} depth depth of the canvas
+ * @returns a matrix for converting pixel coordinates into clipspace
+ */
+export function projection(width, height, depth) {
+    return [
+        2 / width, 0, 0, 0,
+        0, -2 / height, 0, 0,
+        0, 0, 2 / depth, 0,
+        -1, 1, 0, 1,
+    ];
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Black.html">Black</a></li><li><a href="Blue.html">Blue</a></li><li><a href="Brown.html">Brown</a></li><li><a href="Burgandy.html">Burgandy</a></li><li><a href="Color.html">Color</a></li><li><a href="Cube.html">Cube</a></li><li><a href="Cuboid.html">Cuboid</a></li><li><a href="CuboidRenderSettings.html">CuboidRenderSettings</a></li><li><a href="Green.html">Green</a></li><li><a href="Grey.html">Grey</a></li><li><a href="Lifeboat.html">Lifeboat</a></li><li><a href="Magenta.html">Magenta</a></li><li><a href="Pink.html">Pink</a></li><li><a href="Point.html">Point</a></li><li><a href="PointRenderSetting.html">PointRenderSetting</a></li><li><a href="Purple.html">Purple</a></li><li><a href="Rectangle.html">Rectangle</a></li><li><a href="Red.html">Red</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="Shape.html">Shape</a></li><li><a href="Teal.html">Teal</a></li><li><a href="Triangle.html">Triangle</a></li><li><a href="Violet.html">Violet</a></li><li><a href="White.html">White</a></li><li><a href="Yellow.html">Yellow</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#createShader">createShader</a></li><li><a href="global.html#degreeToRadian">degreeToRadian</a></li><li><a href="global.html#identity">identity</a></li><li><a href="global.html#multiply">multiply</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#randomInt">randomInt</a></li><li><a href="global.html#resetForRender">resetForRender</a></li><li><a href="global.html#resizeCanvasToDisplaySize">resizeCanvasToDisplaySize</a></li><li><a href="global.html#rotationX">rotationX</a></li><li><a href="global.html#rotationY">rotationY</a></li><li><a href="global.html#rotationZ">rotationZ</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#throwAbstractClassError">throwAbstractClassError</a></li><li><a href="global.html#throwMatrixMultiplyError">throwMatrixMultiplyError</a></li><li><a href="global.html#translation">translation</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Jul 03 2023 04:38:58 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: object/shape/triangle.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: object/shape/triangle.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+import { Shape } from "./shape.js";
+import { Black } from "../model/color.js";
+
+/**
+ * This class contains a triangle
+ */
+export class Triangle extends Shape {
+
+    /**
+     * Constructs a triangle object
+     * 
+     * @param {Point} pointOne one of the triangles vertices
+     * @param {Point} pointTwo one of the triangles vertices
+     * @param {Point} pointThree one of the triangles vertices
+     * @param {Color} [color] color to draw the triangle
+     */
+    constructor(pointOne, pointTwo, pointThree, color = undefined) {
+        super();
+        this.minX = Math.min(pointOne.x, Math.min(pointTwo.x, pointThree.x));
+        this.minY = Math.min(pointOne.y, Math.min(pointTwo.y, pointThree.y));
+        this.p1 = pointOne;
+        this.p2 = pointTwo;
+        this.p3 = pointThree;
+        this.color = color ?? new Black();
+    }
+
+    /**
+     * Render the triangle to the canvas of the provided context
+     * 
+     * @param {WebGLRenderingContext} gl rendering context for the canvas
+     */
+    render(gl) {
+        if(!this.initPixelRender(gl)) {
+            console.log("GL not provided for Rectangle");
+        } else {
+            // Setup position buffer
+            this.setupPositionBuffer(gl);
+            // Calculate position vertices
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+                this.p1.x - this.minX, this.p1.y - this.minY, 0,
+                this.p2.x - this.minX, this.p2.y - this.minY, 0,
+                this.p3.x - this.minX, this.p3.y - this.minY, 0,
+                this.p1.x - this.minX, this.p1.y - this.minY, 0,
+                this.p3.x - this.minX, this.p3.y - this.minY, 0,
+                this.p2.x - this.minX, this.p2.y - this.minY, 0,
+            ]), gl.STATIC_DRAW);
+            // Setup color buffer
+            this.setupColorBuffer(gl);
+            // Calculate the color values for the vertices
+            gl.bufferData(gl.ARRAY_BUFFER, new Uint8Array([
+                ...this.color.rgb(),
+                ...this.color.rgb(),
+                ...this.color.rgb(),
+                ...this.color.rgb(),
+                ...this.color.rgb(),
+                ...this.color.rgb(),
+            ]), gl.STATIC_DRAW);
+            // Process the provided values
+            this.processPositionBuffer(gl);
+            this.processColorBuffer(gl);
+            // Draw the shape to the screen
+            gl.drawArrays(gl.TRIANGLES, 0, 6);
+        }
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Black.html">Black</a></li><li><a href="Blue.html">Blue</a></li><li><a href="Brown.html">Brown</a></li><li><a href="Burgandy.html">Burgandy</a></li><li><a href="Color.html">Color</a></li><li><a href="Cube.html">Cube</a></li><li><a href="Cuboid.html">Cuboid</a></li><li><a href="CuboidRenderSettings.html">CuboidRenderSettings</a></li><li><a href="Green.html">Green</a></li><li><a href="Grey.html">Grey</a></li><li><a href="Lifeboat.html">Lifeboat</a></li><li><a href="Magenta.html">Magenta</a></li><li><a href="Pink.html">Pink</a></li><li><a href="Point.html">Point</a></li><li><a href="PointRenderSetting.html">PointRenderSetting</a></li><li><a href="Purple.html">Purple</a></li><li><a href="Rectangle.html">Rectangle</a></li><li><a href="Red.html">Red</a></li><li><a href="Renderable.html">Renderable</a></li><li><a href="Shape.html">Shape</a></li><li><a href="Teal.html">Teal</a></li><li><a href="Triangle.html">Triangle</a></li><li><a href="Violet.html">Violet</a></li><li><a href="White.html">White</a></li><li><a href="Yellow.html">Yellow</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#createShader">createShader</a></li><li><a href="global.html#degreeToRadian">degreeToRadian</a></li><li><a href="global.html#identity">identity</a></li><li><a href="global.html#multiply">multiply</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#randomInt">randomInt</a></li><li><a href="global.html#resetForRender">resetForRender</a></li><li><a href="global.html#resizeCanvasToDisplaySize">resizeCanvasToDisplaySize</a></li><li><a href="global.html#rotationX">rotationX</a></li><li><a href="global.html#rotationY">rotationY</a></li><li><a href="global.html#rotationZ">rotationZ</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#throwAbstractClassError">throwAbstractClassError</a></li><li><a href="global.html#throwMatrixMultiplyError">throwMatrixMultiplyError</a></li><li><a href="global.html#translation">translation</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Jul 03 2023 04:38:58 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
