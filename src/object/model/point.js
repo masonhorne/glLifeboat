@@ -43,6 +43,14 @@ export class Point extends Renderable {
     }
 
     /**
+     * Get an array containing the x y and z coordinates of the point
+     * @returns an array containing the x y and z coordinates of the point
+     */
+    coordinate() {
+        return [this.x, this.y, this.z];
+    }
+
+    /**
      * Render the point to the canvas of the provided context
      * 
      * @param {WebGLRenderingContext} gl rendering context for the canvas
@@ -51,6 +59,7 @@ export class Point extends Renderable {
         if(!this.initPixelRender(gl)) {
             console.log("GL not provided for Rectangle");
         } else {
+            gl.uniform1f(this.pointSizeUniformLocation, this.pointSize);
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
                 this.x, this.y, this.z,
             ]), gl.STATIC_DRAW);
